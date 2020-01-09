@@ -53,9 +53,9 @@
   <script>
     const textarea = document.querySelector('textarea');
     const counter = document.querySelector('.counter');
-    const countExclude = 30; // Characters to exclude for frontmatter
+    const countExclude = 28; // Characters to exclude for frontmatter
     textarea.value = `---
-title: '${Date.now()}'
+title: '${Math.floor(Date.now() / 1000)}'
 ---
 `;      
     

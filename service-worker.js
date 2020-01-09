@@ -1,4 +1,4 @@
-const VERSION = '0.2.0';
+const VERSION = '0.2.1';
 const CACHE_KEYS = {
   MAIN: `main-${VERSION}`
 };  
