@@ -18,28 +18,49 @@
     *,*::before,*::after{box-sizing:border-box}ul[class],ol[class]{padding:0}body,h1,h2,h3,h4,p,ul[class],ol[class],li,figure,figcaption,blockquote,dl,dd{margin:0}body{min-height:100vh;scroll-behavior:smooth;text-rendering:optimizeSpeed;line-height:1.5}ul[class],ol[class]{list-style:none}a:not([class]){text-decoration-skip-ink:auto}img{max-width:100%;display:block}article>*+*{margin-top:1em}input,button,textarea,select{font:inherit}@media(prefers-reduced-motion:reduce){*{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important;scroll-behavior:auto !important}}
     body {
       overflow: hidden;
+      font-family: Georgia;
+      line-height: 1.7;
+      font-size: 1.5rem;
     }
+    
     textarea {
       width: 100vw;
       height: 100vh;
       padding: 2rem;
-      line-height: 1.7;
-      font-size: 1.5rem;
-      font-family: Georgia;
+      font: inherit;
+    }
+
+    .counter {
+      display: inline-block;
+      background: #252525;
+      color: #f3f3f3;
+      padding: 1rem;
+      position: absolute;
+      top: 0;
+      right: 0;
+      pointer-events: none;
+      z-index: 1;
+      font-size: 0.9rem;
+      line-height: 1;
     }
   </style>
 </head>
 <body>
   <textarea></textarea>
+  <div class="counter" role="status">
+    Character count: 0
+  </div>
   <script>
     const textarea = document.querySelector('textarea');
-
+    const counter = document.querySelector('.counter');
+    const countExclude = 30; // Characters to exclude for frontmatter
     textarea.value = `---
 title: '${Date.now()}'
 ---
-
 `;      
-
+    
+    textarea.addEventListener('input', evt => counter.innerHTML = `Character count: ${evt.target.value.trim().length - countExclude}`);
+  
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
         navigator.serviceWorker.register('/service-worker.js');
